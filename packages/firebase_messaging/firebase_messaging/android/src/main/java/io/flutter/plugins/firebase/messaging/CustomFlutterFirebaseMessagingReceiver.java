@@ -7,6 +7,8 @@ import com.google.firebase.messaging.RemoteMessage;
 public class CustomFlutterFirebaseMessagingReceiver extends FlutterFirebaseMessagingReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+      
+        super.onReceive(context, intent);
     
         RemoteMessage remoteMessage = new RemoteMessage(intent.getExtras());
         
@@ -15,6 +17,6 @@ public class CustomFlutterFirebaseMessagingReceiver extends FlutterFirebaseMessa
             startActivity(intent);
         }
         
-        super.onReceive(context, intent);
+        
     }
 }
