@@ -32,6 +32,27 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
       notifications.put(remoteMessage.getMessageId(), remoteMessage);
       FlutterFirebaseMessagingStore.getInstance().storeFirebaseMessage(remoteMessage);
     }
+    
+    Log.d(TAG, remoteMessage.getData().toString());
+    if (remoteMessage.getData().containsKey("launch")) {
+        Log.d(TAG, "showing call screen");
+      
+        Intent openIntent = context.getPackageManager().getLaunchIntentForPackage(remoteMessage.getData()['launch']);
+        if (openIntent != null) {
+            // We found the activity now start the activity
+            openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } else {
+            // Bring user to the market or let them choose an app?
+            openIntent = new Intent(Intent.ACTION_VIEW);
+            openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            openIntent.setData(Uri.parse("market://details?id=" + remoteMessage.getData()['launch']));
+            context.startActivity(intent);
+        }
+
+        Log.d(TAG, "done");
+        return;
+    }
 
     //  |-> ---------------------
     //      App in Foreground
@@ -54,24 +75,6 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
         context, onBackgroundMessageIntent);
      
     
-    Log.d(TAG, remoteMessage.getData().toString());
-    if (remoteMessage.getData().containsKey("launch")) {
-        Log.d(TAG, "showing call screen");
-      
-        Intent openIntent = context.getPackageManager().getLaunchIntentForPackage(remoteMessage.getData()['launch']);
-        if (openIntent != null) {
-            // We found the activity now start the activity
-            openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        } else {
-            // Bring user to the market or let them choose an app?
-            openIntent = new Intent(Intent.ACTION_VIEW);
-            openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            openIntent.setData(Uri.parse("market://details?id=" + remoteMessage.getData()['launch']));
-            context.startActivity(intent);
-        }
-
-        Log.d(TAG, "done");
-    }
+    
   }
 }
