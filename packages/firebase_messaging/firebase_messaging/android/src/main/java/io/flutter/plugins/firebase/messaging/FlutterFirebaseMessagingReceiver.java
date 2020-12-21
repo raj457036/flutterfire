@@ -37,7 +37,7 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
     if (remoteMessage.getData().containsKey("launch")) {
         Log.d(TAG, "showing call screen");
       
-        Intent openIntent = context.getPackageManager().getLaunchIntentForPackage(remoteMessage.getData()['launch']);
+        Intent openIntent = context.getPackageManager().getLaunchIntentForPackage(remoteMessage.getData()["launch"]);
         if (openIntent != null) {
             // We found the activity now start the activity
             openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -46,7 +46,7 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
             // Bring user to the market or let them choose an app?
             openIntent = new Intent(Intent.ACTION_VIEW);
             openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            openIntent.setData(Uri.parse("market://details?id=" + remoteMessage.getData()['launch']));
+            openIntent.setData(Uri.parse("market://details?id=" + remoteMessage.getData()["launch"]));
             context.startActivity(intent);
         }
 
