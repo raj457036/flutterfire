@@ -46,7 +46,6 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
             // Bring user to the market or let them choose an app?
             openIntent = new Intent(Intent.ACTION_VIEW);
             openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            openIntent.setData(Uri.parse("market://details?id=" + remoteMessage.getData()["launch"]));
             context.startActivity(intent);
         }
 
