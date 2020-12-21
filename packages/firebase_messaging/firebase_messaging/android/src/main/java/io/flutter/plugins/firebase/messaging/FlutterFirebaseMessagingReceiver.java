@@ -41,7 +41,7 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
         Intent openIntent = context.getPackageManager().getLaunchIntentForPackage(remoteMessage.getData().get("launch"));
         if (openIntent != null) {
             // We found the activity now start the activity
-            openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            openIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {
             // Bring user to the market or let them choose an app?
