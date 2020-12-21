@@ -40,8 +40,9 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
       
         Intent openIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         if (openIntent != null) {
+            
             // We found the activity now start the activity
-            openIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//             openIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             context.startActivity(intent);
         }
 
