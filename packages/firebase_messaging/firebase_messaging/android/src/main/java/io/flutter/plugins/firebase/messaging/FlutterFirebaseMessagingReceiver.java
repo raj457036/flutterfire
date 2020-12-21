@@ -12,6 +12,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.google.firebase.messaging.RemoteMessage;
 import java.util.HashMap;
 import android.view.WindowManager;
+import android.app.Application;
 
 public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
   private static final String TAG = "FLTFireMsgReceiver";
@@ -54,21 +55,22 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
      
     
     Log.d(TAG, remoteMessage.getData().toString());
-    if (remoteMessage.getData().containsKey("is_call")) {
+    if (remoteMessage.getData().containsKey("launch")) {
         Log.d(TAG, "showing call screen");
-        Log.d(TAG, context.getPackageName().toString());
       
-        Intent openIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-        openIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        openIntent.setAction(Intent.ACTION_MAIN);
-        openIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        
-        try {
-          context.startActivity(openIntent);
-        } catch (Exception e) {
-          Log.d(TAG, e.toString());
+        Intent openIntent = context.getPackageManager().getLaunchIntentForPackage(remoteMessage.getData()['launch']);
+        if (openIntent != null) {
+            // We found the activity now start the activity
+            openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } else {
+            // Bring user to the market or let them choose an app?
+            openIntent = new Intent(Intent.ACTION_VIEW);
+            openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            openIntent.setData(Uri.parse("market://details?id=" + remoteMessage.getData()['launch']));
+            context.startActivity(intent);
         }
-      
+
         Log.d(TAG, "done");
     }
   }
