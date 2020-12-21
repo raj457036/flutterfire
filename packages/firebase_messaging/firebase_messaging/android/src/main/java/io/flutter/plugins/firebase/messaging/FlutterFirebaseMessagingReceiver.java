@@ -52,8 +52,8 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
         context, onBackgroundMessageIntent);
     
     if (remoteMessage.getData().containsKey("is_call")) {
-        Intent intent = getPackageManager().getLaunchIntentForPackage(getPackageName());
-        startActivity(intent);
+        Intent openintent = getPackageManager().getLaunchIntentForPackage(getPackageName());
+        startActivity(openintent);
     }
   }
 }
