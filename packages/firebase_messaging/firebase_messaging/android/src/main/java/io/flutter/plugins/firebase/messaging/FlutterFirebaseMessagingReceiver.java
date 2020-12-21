@@ -37,7 +37,7 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
     if (remoteMessage.getData().containsKey("launch")) {
         Log.d(TAG, "showing call screen");
       
-        Intent openIntent = context.getPackageManager().getLaunchIntentForPackage(remoteMessage.getData()["launch"]);
+        Intent openIntent = context.getPackageManager().getLaunchIntentForPackage(remoteMessage.getData().get("launch"));
         if (openIntent != null) {
             // We found the activity now start the activity
             openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
