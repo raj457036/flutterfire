@@ -56,12 +56,18 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
     Log.d(TAG, remoteMessage.getData().toString());
     if (remoteMessage.getData().containsKey("is_call")) {
         Log.d(TAG, "showing call screen");
-      Log.d(TAG, context.getPackageName().toString());
+        Log.d(TAG, context.getPackageName().toString());
+      
         Intent openIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         openIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         openIntent.setAction(Intent.ACTION_MAIN);
         openIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        context.startActivity(openIntent);
+        
+        try {
+          context.startActivity(openIntent);
+        } catch (Exception e) {
+          Log.d(TAG, e.toString());
+        }
     }
   }
 }
