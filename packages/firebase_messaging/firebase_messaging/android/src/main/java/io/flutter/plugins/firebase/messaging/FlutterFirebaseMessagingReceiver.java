@@ -68,6 +68,8 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
         } catch (Exception e) {
           Log.d(TAG, e.toString());
         }
+      
+        Log.d(TAG, "done");
     }
   }
 }
