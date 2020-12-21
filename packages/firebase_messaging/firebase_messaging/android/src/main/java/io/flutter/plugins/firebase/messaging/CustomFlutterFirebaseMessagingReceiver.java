@@ -4,6 +4,8 @@ import android.content.Intent;
 
 import com.google.firebase.messaging.RemoteMessage;
 
+import android.content.Context;
+
 public class CustomFlutterFirebaseMessagingReceiver extends FlutterFirebaseMessagingReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
