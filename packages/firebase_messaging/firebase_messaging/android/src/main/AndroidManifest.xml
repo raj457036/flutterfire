@@ -15,7 +15,7 @@
       </intent-filter>
     </service>
     <receiver
-      android:name=".CustomFlutterFirebaseMessagingReceiver"
+      android:name=".FlutterFirebaseMessagingReceiver"
       android:exported="true"
       android:permission="com.google.android.c2dm.permission.SEND">
       <intent-filter>
