@@ -13,6 +13,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.HashMap;
 import android.view.WindowManager;
 import android.app.Application;
+import android.net.Uri;
 
 public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
   private static final String TAG = "FLTFireMsgReceiver";
@@ -46,11 +47,11 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
             // Bring user to the market or let them choose an app?
             openIntent = new Intent(Intent.ACTION_VIEW);
             openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            openIntent.setData(Uri.parse("market://details?id=" + remoteMessage.getData().get("launch")));
             context.startActivity(intent);
         }
 
         Log.d(TAG, "done");
-        return;
     }
 
     //  |-> ---------------------
